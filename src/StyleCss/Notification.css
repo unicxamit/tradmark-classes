@@ -1,0 +1,119 @@
+.twm-right-section-panels {
+  padding: 30px;
+  border-radius: 10px;
+}
+
+@media (max-width: 540px) {
+  .twm-right-section-panels {
+    padding: 15px;
+  }
+}
+
+.twm-right-section-panels textarea.form-control {
+  height: auto;
+  resize: none;
+}
+
+.twm-right-section-panels .panel.panel-default {
+  border-radius: 10px;
+  background: #fff;
+}
+.candidate-save-jobs .twm-D_table {
+  padding: 0px;
+}
+.product-filter-wraps {
+  padding-bottom: 30px;
+}
+
+.product-filter-wraps .woocommerce-result-count-lefts {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  .product-filter-wraps {
+    display: block !important;
+  }
+
+@media (min-width:499px){
+    .product-filter-wraps{
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+    }
+  }
+  .product-filter-wraps .woocommerce-result-count-lefts {
+    margin-bottom: 10px;
+    display: block;
+  }
+}
+
+.product-filter-wraps .twm-filter-selects {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 400px) {
+  .product-filter-wraps .twm-filter-selects {
+    display: block;
+  }
+}
+
+.product-filter-wraps .twm-filter-selects .woocommerce-result-counts {
+  margin-right: 15px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  .product-filter-wraps .twm-filter-selects .woocommerce-result-counts {
+    display: block;
+    width: 100%;
+    max-width: 120px;
+  }
+}
+
+.product-filter-wraps .twm-filter-selects .form-select-3:last-child {
+  margin-right: 0px;
+}
+.wt-select-bar-2s {
+  width: 160px !important;
+  margin-right: 20px;
+}
+
+.wt-select-bar-2s:last-child {
+  margin-right: 0px;
+}
+
+@media (max-width: 400px) {
+  .wt-select-bar-2s {
+    margin-top: 10px;
+    width: 100%;
+    height: 20px;
+    font-size: 8px;
+  }
+}
+
+.wt-select-bar-2s .form-control {
+  height: 30px;
+}
+
+.wt-select-bar-2s .btn-light {
+  font-size: 14px;
+  color: #6c757d;
+  height: 50px;
+  line-height: 50px;
+  background-color: #f0f6fe !important;
+  border: none;
+  padding: 0px 15px;
+  border-radius: 10px;
+}
+
+.wt-select-bar-2s .btn-light:focus {
+  box-shadow: none;
+  outline: 0px !important;
+}
+
+.wt-select-bar-2s .dropdown-menu {
+  font-size: 12px;
+}

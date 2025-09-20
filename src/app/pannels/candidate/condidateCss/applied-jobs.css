@@ -1,0 +1,316 @@
+.tab-button{
+      border-color:white;
+   width:20%;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ font-weight:450;
+ border:2px solid black;
+ 
+ padding:5px 4.2px;
+}
+
+.tabs-wrapper{
+    display: flex;
+    padding: 10px 10px;
+}
+
+.tabActive{
+  border-bottom: 3px solid #3b82f6;
+  color:#3b82f6;
+  border-left: transparent;
+  border-right: transparent;
+  border-top: transparent;
+}
+.tabaction{
+  border:transparent;
+ color: #374151;
+}
+.dropdown-menu-items{
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  border:none;
+  /* color:#f3f4f6; */
+}
+
+.card-image{
+  position: absolute;
+  left: 15px;
+  top: 10px;
+  width: 140px;
+  height: 150px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: -5px 10px 25px rgba(56, 152, 226, 0.4);
+}
+
+
+  .hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.twm-jobs-list-wrap{
+   max-width: 910px;
+  margin: 0px auto;
+}
+
+.twm-right-section-panel {
+  padding: 30px;
+  border-radius: 10px;
+}
+
+@media (max-width: 540px) {
+  .twm-right-section-panel {
+    padding: 15px;
+  }
+}
+
+.twm-right-section-panel textarea.form-control {
+  height: auto;
+  resize: none;
+}
+
+.twm-right-section-panel .panel.panel-default {
+  border-radius: 10px;
+  background: #fff;
+}
+
+.list-simple.list-unstyled li ul {
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.twm-jobs-list-style1 {
+  background-color: #fff;
+  border: 10px;
+  border: 1px solid #efefef;
+  position: relative;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .twm-jobs-list-style1 {
+    text-align: center;
+    display: block;
+    margin-bottom: 30px !important;
+  }
+}
+
+.twm-jobs-list-style1 .twm-media {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 40px rgba(56, 152, 226, 0.3);
+  margin-right: 40px;
+  position: absolute;
+  bottom: -20px;
+  line-height: 150px;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .twm-jobs-list-style1 .twm-media {
+    position: inherit;
+    bottom: inherit;
+    margin-right: 0px;
+    margin-bottom: 30px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+  }
+}
+
+.twm-jobs-list-style1 .twm-media img {
+  display: inline-block;
+}
+
+.twm-jobs-list-style1 p {
+  font-size: 14px;
+}
+
+.twm-jobs-list-style1 .twm-mid-content {
+  padding-left: 180px;
+}
+
+@media (max-width: 767px) {
+  .twm-jobs-list-style1 .twm-mid-content {
+    padding-left: 0px;
+  }
+}
+
+.twm-jobs-list-style1 .twm-right-content {
+  text-align: right;
+  width: 178px;
+}
+
+@media (max-width: 767px) {
+  .twm-jobs-list-style1 .twm-right-content {
+    text-align: inherit;
+    width: auto;
+  }
+}
+
+.twm-jobs-list-style1 .twm-right-content .twm-job-address {
+  margin-bottom: 0px;
+}
+
+.twm-jobs-list-style1 .twm-right-content .twm-jobs-amount {
+  font-weight: 500;
+  color: #17171d;
+  margin: 20px 0px 10px 0px;
+  font-size: 14px;
+}
+
+.twm-jobs-list-style1 .twm-right-content .twm-jobs-amount span {
+  color: #046c38;
+}
+
+.twm-jobs-list-style1 .twm-right-content .twm-job-websites {
+  font-size: 14px;
+}
+
+.twm-jobs-list-style1 .twm-right-content .twm-jobs-browse {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.twm-jobs-list-style1 .twm-job-title .twm-job-post-duration {
+  color: #2db346;
+  font-size: 14px;
+}
+
+.twm-jobs-grid-style1 .twm-media {
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  display: inline-block;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 40px rgba(56, 152, 226, 0.3);
+  margin-right: 30px;
+  position: absolute;
+  top: -30px;
+  overflow: hidden;
+}
+
+@media (max-width: 420px) {
+  .twm-jobs-grid-style1 .twm-media {
+    position: inherit;
+    top: inherit;
+    margin: 0px auto;
+  }
+}
+
+.twm-jobs-grid-style1 .twm-media img {
+  display: block;
+}
+.twm-cv-manager-list-style1 .twm-mid-content {
+  flex-grow: 1;
+}
+.twm-top-wide-banner-content .twm-mid-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+@media (max-width: 991px) {
+  .twm-top-wide-banner-content .twm-mid-content {
+    display: block;
+  }
+}
+
+@media (max-width: 991px) {
+  .twm-top-wide-banner-content .twm-mid-content .twm-employer-self-top {
+    margin-bottom: 20px;
+  }
+}
+
+.twm-top-wide-banner-content .twm-mid-content .twm-media {
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  display: inline-block;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.twm-top-wide-banner-content .twm-mid-content .twm-media img {
+  width: 100%;
+  display: block;
+}
+
+.twm-top-wide-banner-content .twm-mid-content .twm-employer-address {
+  color: #fff;
+}
+
+.twm-top-wide-banner-content .twm-mid-content .twm-employer-address i {
+  padding-right: 10px;
+}
+
+.twm-top-wide-banner-content .twm-mid-content .twm-job-title {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #fff;
+}
+
+.twm-top-wide-banner-content .twm-mid-content .twm-employer-websites {
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: 14px;
+  display: block;
+}
+.twm-cv-manager-list-style1 .twm-job-post-duration {
+  color: #2db346;
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+@media (max-width: 420px) {
+  .twm-cv-manager-list-style1 .twm-job-post-duration {
+    margin-right: 0px;
+  }
+}
+.twm-jobs-grid-style2 .twm-job-post-duration {
+  color: #2db346;
+  font-size: 14px;
+}
+
+@media (max-width: 420px) {
+  .twm-jobs-grid-style2 .twm-job-post-duration {
+    display: block;
+    margin: 0px;
+  }
+}
+.twm-job-self-wrap .twm-job-self-info .twm-job-self-top .twm-job-title .twm-job-post-duration {
+  color: #2db346;
+  font-size: 14px;
+}
+
+@media (max-width: 420px) {
+  .twm-job-self-wrap.twm-job-detail-v2 .twm-job-self-info .twm-job-self-top .twm-job-title {
+    font-size: 18px;
+  }
+
+  .twm-job-self-wrap.twm-job-detail-v2 .twm-job-self-info .twm-job-self-top .twm-job-title .twm-job-post-duration {
+    display: block;
+    padding: 5px 0px 0px 0px;
+  }
+}
