@@ -1973,71 +1973,68 @@ const TdClass01 = () => {
               </section>
             </section>
             {/* Process of Registration */}
-            <section className="process-section-main">
-              {" "}
-              <section
-                class="registration-process-main"
-                id="process"
-                ref={(el) => (sectionRefs.current["process"] = el)}
-              >
-                <h2 class="process-title">Process Of Registration</h2>
-                <div className="registration-process">
-                  <div class="process-image-container">
-                    <img
-                      src={slides[currentIndex].img}
-                      alt={`Slide ${currentIndex + 1}`}
-                      class="process-image"
-                    />
-                  </div>
+            {/* <section className="process-section-main"> */}{" "}
+            <section
+              class="registration-process-main"
+              id="process"
+              ref={(el) => (sectionRefs.current["process"] = el)}
+            >
+              <h2 class="process-title">Process Of Registration</h2>
+              <div className="registration-process">
+                <div class="process-image-container">
+                  <img
+                    src={slides[currentIndex].img}
+                    alt={`Slide ${currentIndex + 1}`}
+                    class="process-image"
+                  />
+                </div>
 
-                  <div class="process-content">
-                    <div class="bullets-and-text">
-                      <div class="bullet-container">
-                        {slides.map((_, index) => (
-                          <span
-                            key={index}
-                            onClick={() => handleBulletClick(index)}
-                            class={`bullet ${
-                              currentIndex === index
-                                ? "bullet-active"
-                                : "bullet-inactive"
-                            }`}
-                          ></span>
-                        ))}
+                <div class="process-content">
+                  <div class="bullets-and-text">
+                    <div class="bullet-container">
+                      {slides.map((_, index) => (
+                        <span
+                          key={index}
+                          onClick={() => handleBulletClick(index)}
+                          class={`bullet ${
+                            currentIndex === index
+                              ? "bullet-active"
+                              : "bullet-inactive"
+                          }`}
+                        ></span>
+                      ))}
+                    </div>
+                    <div class="process-steps-list">
+                      <div>
+                        <span className="process-number">01</span>
+                        <p class="process-step">Trademark Search</p>
                       </div>
-                      <div class="process-steps-list">
-                        <div>
-                          <span className="process-number">01</span>
-                          <p class="process-step">Trademark Search</p>
-                        </div>
-                        <div>
-                          <span className="process-number">02</span>
-                          <p class="process-step">Filling The Application</p>
-                        </div>
+                      <div>
+                        <span className="process-number">02</span>
+                        <p class="process-step">Filling The Application</p>
+                      </div>
 
-                        <div>
-                          <span className="process-number">03</span>
-                          <p class="process-step">Examination</p>
-                        </div>
+                      <div>
+                        <span className="process-number">03</span>
+                        <p class="process-step">Examination</p>
+                      </div>
 
-                        <div>
-                          <span className="process-number">04</span>
-                          <p class="process-step">Public Review</p>
-                        </div>
+                      <div>
+                        <span className="process-number">04</span>
+                        <p class="process-step">Public Review</p>
+                      </div>
 
-                        <div>
-                          <span className="process-number">05</span>
-                          <p class="process-step">Final Registration</p>
-                        </div>
+                      <div>
+                        <span className="process-number">05</span>
+                        <p class="process-step">Final Registration</p>
                       </div>
                     </div>
                   </div>
                 </div>
-              </section>
+              </div>
             </section>
-
+            {/* </section> */}
             {/* Testimonial  */}
-
             <div className="testimonials-container">
               <div>
                 <div className="testimonials-header">
@@ -2100,9 +2097,7 @@ const TdClass01 = () => {
                 </div>
               </div>
             </div>
-
             {/* whay choose us */}
-
             <section
               className="how-it-works-section"
               id="whyus"
@@ -2174,7 +2169,6 @@ const TdClass01 = () => {
                 </div>
               </div>
             </section>
-
             {/* FAQs */}
             <section
               className="faq-main-sections"
@@ -2218,7 +2212,6 @@ const TdClass01 = () => {
                 </div>
               </div>
             </section>
-
             {/* contact us */}
             <section class="brand-security-section">
               <div class="brand-security-content">

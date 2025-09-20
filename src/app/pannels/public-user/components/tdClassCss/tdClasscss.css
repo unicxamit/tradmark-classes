@@ -1596,63 +1596,53 @@ padding:1rem 0.5rem  1rem 0.5rem;
   margin-bottom: 0.75rem; /* mb-3 */
 }
 /* process of register tradmark class01 */
-/* Main Section */
-.process-section-main{
- margin-bottom: 4rem;
- /* padding: 2.5rem; */
- border:1px solid red;
-}
+
 .registration-process-main {
-   display: flex ;
-   flex-direction: column;
- justify-content: center;
- /* border:1px solid red; */
+margin-bottom: 2.5rem;
+ border:1px solid red;
  
 }
 .registration-process{
-/* display: grid; */
-  /* grid-template-columns: repeat(2, minmax(0, 1fr));  */
+
   display: flex;
-  /* overflow: hidden;  */
-  /* height: 24rem;  */
-  padding:3.5rem 5rem 10rem 0;
-  /* align-items: center; */
-  /* border:1px solid black; */
-  /* gap:10rem; */
+
+  padding:3.5rem 5rem 0 0;
+ 
   justify-content: center;
   gap:5rem;
-  /* align-items: center; */
+  
 }
 /* Left Side - Image Slider */
 .process-image-container {
-  background-color: #f65032; 
-  /* border-radius: 10rem 10rem 10rem 10rem;  */
-  border-top-left-radius: 12rem;
-  border-top-right-radius: 12rem;
-   border-bottom-left-radius: 12rem;
-  border-bottom-right-radius: 12rem;
-  width: 22rem;
-  height: 33rem;
-  position: relative;
-  /* z-index: 99999; */
-  /* overflow: hidden;  */
-  /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);  */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5rem 0.5rem 0 0.5rem;
+
+    background-color: #f65032;
+    /* border-radius: 10rem 10rem 10rem 10rem; */
+    border-top-left-radius: 12rem;
+    border-top-right-radius: 12rem;
+    border-bottom-left-radius: 12rem;
+    border-bottom-right-radius: 12rem;
+    width: 22rem;
+    height: 35rem;
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+    /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); */
+    display: flex;
+    justify-content: center;
+    padding: 6rem 3rem 5rem 3rem;
 }
 
+
 .process-image-container .process-image {
-    width: 80%;
-    height: 85%;
+    width: 100%;
+    height: auto;
     object-fit:cover;
     /* border-radius: inherit; */
     transition-property: all;
     transition-duration: 700ms;
     /* padding: 10px 10px; */
     /* position: relative; */
-    /* z-index: 9; */
+    z-index: 9;
 
 }
 
@@ -1662,15 +1652,11 @@ padding:1rem 0.5rem  1rem 0.5rem;
   bottom: -40px; 
   left:0;
   /* z-index: -50; */
-  width: 110%;
-  height: 28%;
-  border-bottom-left-radius: 80rem;
-  border-bottom-right-radius: 80rem;
-  /* border-top-left-radius: -80px; */
-  /* border-top-left-radius: 80rem;
-  border-top-right-radius: 80rem; */
-  /* padding: 10rem 0 0 0; */
- /* border:2px solid red; */
+  width: 100%;
+  height: 24%;
+  /* border-bottom-left-radius: 80rem;
+  border-bottom-right-radius: 80rem; */
+ 
 
   background-color: #e0e4e7; 
 
@@ -1680,22 +1666,7 @@ padding:1rem 0.5rem  1rem 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
-  /* margin-right: 10rem; */
-  /* align-items: center ;
-  column-gap: 10rem; */
-}
-.process-image {
-   /* width: 100%;
-  height: 80%; */
-  /* size: 50rem;  */
-  /* object-fit: cover; */
-  /* transition-property: all; 
-  transition-duration: 700ms;  */
-  /* display: flex; */
-  /* align-items: center; */
-  /* border:1px solid black; */
-  /* border-radius: 2rem; */
+ 
 }
 
 .process-title {
