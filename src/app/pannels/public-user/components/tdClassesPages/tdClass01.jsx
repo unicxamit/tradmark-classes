@@ -101,6 +101,7 @@ const TdClass01 = () => {
 
   const handleTabClick = (id) => {
     const section = sectionRefs.current[id];
+    console.log(section, "section id");
     if (section) {
       const topOffset = 190; // jitna gap chahiye upar se (px me)
       const elementPosition = section.offsetTop;
@@ -135,7 +136,7 @@ const TdClass01 = () => {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.16 }
     );
 
     observer.observe(heroElement);
@@ -299,12 +300,22 @@ const TdClass01 = () => {
     // Cleanup function to cancel the animation frame when the component unmounts or the hover state changes.
     return () => cancelAnimationFrame(animationFrameId);
   }, [isHovered]);
+  // faq section
 
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(null);
+  const faqRefs = useRef([]);
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+  useEffect(() => {
+    faqRefs.current.forEach((ref, index) => {
+      if (ref) {
+        ref.style.maxHeight =
+          openIndex === index ? ref.scrollHeight + "px" : "0px";
+      }
+    });
+  }, [openIndex]);
   const faqs = [
     {
       question: "When should I schedule my first prenatal visit?",
@@ -336,51 +347,51 @@ const TdClass01 = () => {
       answer:
         "Most women see their provider every 4 weeks until 28 weeks, then every 2 weeks until 36 weeks, and weekly until delivery.",
     },
-    {
-      question: "Do I need special nutrition during pregnancy?",
-      answer:
-        "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    },
-    {
-      question: "Do I need special nutrition during pregnancy?",
-      answer:
-        "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    },
-    {
-      question: "Do I need special nutrition during pregnancy?",
-      answer:
-        "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    },
-    {
-      question: "Do I need special nutrition during pregnancy?",
-      answer:
-        "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    },
-    {
-      question: "Do I need special nutrition during pregnancy?",
-      answer:
-        "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    },
-    {
-      question: "Do I need special nutrition during pregnancy?",
-      answer:
-        "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    },
-    {
-      question: "Do I need special nutrition during pregnancy?",
-      answer:
-        "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    },
-    {
-      question: "Do I need special nutrition during pregnancy?",
-      answer:
-        "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    },
-    {
-      question: "Do I need special nutrition during pregnancy?",
-      answer:
-        "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    },
+    // {
+    //   question: "Do I need special nutrition during pregnancy?",
+    //   answer:
+    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+    // },
+    // {
+    //   question: "Do I need special nutrition during pregnancy?",
+    //   answer:
+    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+    // },
+    // {
+    //   question: "Do I need special nutrition during pregnancy?",
+    //   answer:
+    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+    // },
+    // {
+    //   question: "Do I need special nutrition during pregnancy?",
+    //   answer:
+    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+    // },
+    // {
+    //   question: "Do I need special nutrition during pregnancy?",
+    //   answer:
+    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+    // },
+    // {
+    //   question: "Do I need special nutrition during pregnancy?",
+    //   answer:
+    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+    // },
+    // {
+    //   question: "Do I need special nutrition during pregnancy?",
+    //   answer:
+    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+    // },
+    // {
+    //   question: "Do I need special nutrition during pregnancy?",
+    //   answer:
+    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+    // },
+    // {
+    //   question: "Do I need special nutrition during pregnancy?",
+    //   answer:
+    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+    // },
   ];
 
   const productList = [
@@ -1414,6 +1425,7 @@ const TdClass01 = () => {
               class="main-section"
               id="included"
               ref={(el) => (sectionRefs.current["included"] = el)}
+              style={{ border: "1px solid red" }}
             >
               <section class="inner-section">
                 <h2 class="heading">
@@ -1973,7 +1985,7 @@ const TdClass01 = () => {
               </section>
             </section>
             {/* Process of Registration */}
-            {/* <section className="process-section-main"> */}{" "}
+
             <section
               class="registration-process-main"
               id="process"
@@ -2176,6 +2188,7 @@ const TdClass01 = () => {
               ref={(el) => (sectionRefs.current["faq"] = el)}
             >
               <div className="faqs-containers">
+                {/* Left Side */}
                 <div className="faqs-lefts">
                   <p className="faq-labels">FAQS</p>
                   <h2 className="faq-titles">
@@ -2187,12 +2200,13 @@ const TdClass01 = () => {
                   </p>
                 </div>
 
+                {/* Right Side */}
                 <div className="faqs-rights">
                   {faqs.map((faq, index) => (
                     <div
                       key={index}
                       className={`faq-items ${
-                        openIndex === index ? "opens" : ""
+                        openIndex === index ? "active" : ""
                       }`}
                       onClick={() => toggleFAQ(index)}
                     >
@@ -2204,9 +2218,12 @@ const TdClass01 = () => {
                           {openIndex === index ? "−" : "+"}
                         </span>
                       </div>
-                      {openIndex === index && (
+                      <div
+                        className="faq-answers-wrapper"
+                        ref={(el) => (faqRefs.current[index] = el)}
+                      >
                         <div className="faq-answers">{faq.answer}</div>
-                      )}
+                      </div>
                     </div>
                   ))}
                 </div>
