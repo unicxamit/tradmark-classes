@@ -1,0 +1,69 @@
+.class-list-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* default 1 column */
+  gap: 1.5rem;
+}
+
+/* Medium screen - 2 columns */
+@media (min-width: 640px) {
+  .class-list-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large screen - 3 columns */
+@media (min-width: 1024px) {
+  .class-list-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Extra large screen - 4 columns */
+@media (min-width: 1280px) {
+  .class-list-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.class-card {
+  display: block;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: #b38888;
+  color:"black";
+  /* width: 40%; */
+  transition: box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.class-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.class-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.class-description {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* only show 2 lines */
+  -webkit-box-orient: vertical;
+}
+
+.view-details {
+  margin-top: 0.75rem;
+  display: block;
+  color: #0284c7;
+  font-size: 0.875rem;
+}

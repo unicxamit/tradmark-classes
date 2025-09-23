@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ArrowDown, ArrowUp, ChevronDown, ChevronUp, Tag } from "lucide-react";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import {
+  FaCheckCircle,
+  FaCubes,
+  FaFlask,
+  FaIndustry,
+  FaMicroscope,
+  FaSeedling,
+  FaTimesCircle,
+  FaTools,
+} from "react-icons/fa";
+import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 import { BiArrowToBottom, BiArrowToTop } from "react-icons/bi";
 import urlImage from "../calculatorImage/gst.png";
 import { IoSearch } from "react-icons/io5";
@@ -26,6 +36,7 @@ import {
   FaArrowRight,
   FaUserCircle,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import whoshould from "../tdClassImages/whoshouldregister.jpg";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import benifite from "../tdClassImages/benifite02.png";
@@ -46,19 +57,38 @@ import process04 from "../tdClassImages/process04.png";
 import process05 from "../tdClassImages/process05.png";
 const sections = [
   { id: "class1", label: "Class1" },
-  { id: "included", label: "Included" },
-  { id: "excluded", label: "Excluded" },
+  { id: "included", label: "Goods/Guide" },
+  // { id: "excluded", label: "Excluded" },
   { id: "expertise", label: "Expertise" },
-  { id: "eligibility", label: "Eligibility" },
+  { id: "eligibility", label: "Who Should Register" },
   { id: "benefits", label: "Benefits" },
   { id: "process", label: "Process" },
   { id: "whyus", label: "Why Choose Us" },
   { id: "faq", label: "FAQ" },
-  { id: "articles", label: "Articles" },
+  // { id: "articles", label: "Articles" },
 ];
 
+const classes = Array.from({ length: 45 }, (_, i) => `C-${i + 1}`);
 const TdClass01 = () => {
+  // Hero section search bar
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+  console.log(showDropdown, "showdropdown");
+  // const classes = Array.from({ length: 45 }, (_, i) => `Class ${i + 1}`);
+
+  const filteredClasses = classes.filter((cls) =>
+    cls.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  console.log(filteredClasses, "filterclasses");
+  const handleClassClick = (cls) => {
+    navigate(`/class/${cls}`);
+  };
+  // Hero section search bar
+  // goods product
   const gridRef = useRef(null);
+  const [isAtTop, setIsAtTop] = useState(true);
+  const [isAtBottom, setIsAtBottom] = useState(false);
 
   const ITEMS_PER_CLICK = 10;
   const COLUMNS = 3;
@@ -83,25 +113,50 @@ const TdClass01 = () => {
 
     const rowsToScroll = Math.ceil(ITEMS_PER_CLICK / COLUMNS);
     const delta = rowsToScroll * getRowHeight() * direction;
-
     const maxTop = grid.scrollHeight - grid.clientHeight;
-    const nextTop = Math.min(
-      Math.max(0, grid.scrollTop + delta),
-      Math.max(0, maxTop)
-    );
+    const nextTop = Math.min(Math.max(0, grid.scrollTop + delta), maxTop);
+
     grid.scrollTo({ top: nextTop, behavior: "smooth" });
+    updateButtons();
   };
 
-  const scrollUp = () => scrollByItems(-1);
-  const scrollDown = () => scrollByItems(1);
+  const updateButtons = () => {
+    const grid = gridRef.current;
+    if (!grid) return;
 
+    const { scrollTop, scrollHeight, clientHeight } = grid;
+    setIsAtTop(scrollTop <= 0);
+    setIsAtBottom(scrollTop + clientHeight >= scrollHeight - 1);
+  };
+
+  const scrollUp = () => {
+    if (!isAtTop) scrollByItems(-1);
+  };
+
+  const scrollDown = () => {
+    if (!isAtBottom) scrollByItems(1);
+  };
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    updateButtons();
+    grid.addEventListener("scroll", updateButtons);
+
+    return () => {
+      grid.removeEventListener("scroll", updateButtons);
+    };
+  }, []);
+  // goods products
+  // tabbar
   const [activeTab, setActiveTab] = useState(sections[0].id);
   const sectionRefs = useRef({});
   const gridRefs = useRef(null);
 
   const handleTabClick = (id) => {
     const section = sectionRefs.current[id];
-    console.log(section, "section id");
+
     if (section) {
       const topOffset = 190; // jitna gap chahiye upar se (px me)
       const elementPosition = section.offsetTop;
@@ -173,7 +228,7 @@ const TdClass01 = () => {
       behavior: "smooth",
     });
   };
-
+  // tab bar section
   const slides = [
     {
       img: process01,
@@ -1218,132 +1273,157 @@ const TdClass01 = () => {
   };
   return (
     <>
+      {/* breakcram */}
       <section className="hero-section" id="hero-section">
-        <div className="hero-container">
-          {/* Left Content */}
-          <div className="hero-lefts">
-            {/* <p className="hero-subtitles">
-              Legal Expertise for your Creative Vision.
-            </p> */}
-            <h1 class="class-heading">
-              Protect Your Apparel &amp; Fashion Brand <br />
-              <span class="highlight">
-                Trademark <span>Class 25</span>
-              </span>
-            </h1>
+        <div className="hero-container-wrapper">
+          <div className="hero-container">
+            {/* Left Content */}
+            <div>
+              <nav class="breadcrumb">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li>
+                    <a href="/trademark">Trademark</a>
+                  </li>
+                  <li class="active">Class 1</li>
+                </ul>
+              </nav>
+              <div className="hero-lefts">
+                <h1 className="class-heading">
+                  Protect Your Apparel &amp; Fashion Brand <br />
+                  <span className="highlight">
+                    Trademark <span>Class 25</span>
+                  </span>
+                </h1>
 
-            <p className="hero-descs">
-              UniCX provides trusted guidance and a clear process to help
-              fashion brands protect their trademarks.
-            </p>
+                <p className="hero-descs">
+                  UniCX provides trusted guidance and a clear process to help
+                  fashion brands protect their trademarks.
+                </p>
 
-            <div className="btn-group">
-              <button className="btn-primarys">Get Started</button>
-              <button onClick={() => setIsOpen(true)} className="btn-outlines">
-                <PlayCircle className="icon" /> Watch Demo
-              </button>
-            </div>
+                <div className="btn-group">
+                  <button className="btn-primarys">Get Started</button>
+                  <button
+                    onClick={() => setIsOpen(true)}
+                    className="btn-outlines"
+                  >
+                    <PlayCircle className="icon" /> Watch Demo
+                  </button>
+                </div>
 
-            {/* Search Bar */}
-            <div className="search-bar">
-              <input
-                type="text"
-                placeholder="Find another class (e.g., 'Class 9')"
-              />
-            </div>
+                {/* Search Bar */}
+                <div
+                  style={{
+                    position: "relative",
+                    // height: "500px",
+                    margin: "2rem auto",
+                  }}
+                >
+                  <div className="search-bar">
+                    <input
+                      type="text"
+                      placeholder="Find another class (e.g., 'Class 9')"
+                      value={searchTerm}
+                      onFocus={() => setShowDropdown(true)}
+                      onBlur={() =>
+                        setTimeout(() => setShowDropdown(false), 200)
+                      }
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="search-input"
+                    />
+                    <button className="search-btn">
+                      <span className="icon">🔍</span> Search
+                    </button>
+                  </div>
 
-            {/* Tags */}
-            <div className="tag-list">
-              <span className="tag">Footwear</span>
-              <span className="tag">Leather Goods</span>
-              <span className="tag">Accessories</span>
-              <span className="tag">Jewelry</span>
-            </div>
-          </div>
+                  {showDropdown && (
+                    <div className="hero-search-dropdown">
+                      {filteredClasses.map((cls, index) => (
+                        <div
+                          key={index}
+                          className="hero-search-dropdown-item"
+                          onMouseDown={() => handleClassClick(cls)}
+                        >
+                          {cls}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
-          {/* Right Contact Form */}
-          {/* <div className="form-box">
-            <h2>Get in Touch</h2>
-            <form>
-              <div className="form-group">
-                <label>Name</label>
-                <input type="text" placeholder="Your Name" />
+                {/* Tags */}
+                {/* <div className="tag-list">
+                <span className="tag">Footwear</span>
+                <span className="tag">Leather Goods</span>
+                <span className="tag">Accessories</span>
+                <span className="tag">Jewelry</span>
+              </div> */}
               </div>
-              <div className="form-group">
-                <label>Email</label>
-                <input type="email" placeholder="you@example.com" />
-              </div>
-              <div className="form-group">
-                <label>Message</label>
+            </div>
+            <div className="contact-form-card">
+              <h3 style={{ color: "black" }}>Get in Touch</h3>
+              <form>
+                <label htmlFor="name">Name</label>
+                <input type="text" id="name" placeholder="Your Name" required />
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="you@example.com"
+                  required
+                />
+                <label htmlFor="message">Message</label>
                 <textarea
-                  rows="4"
-                  placeholder="How can we help you?"
-                ></textarea>
-              </div>
-              <button type="submit" className="btn-primary full">
-                Submit
-              </button>
-            </form>
-          </div> */}
-
-          <div className="contact-form-card">
-            <h3>Get in Touch</h3>
-            <form>
-              <label htmlFor="name">Name</label>
-              <input type="text" id="name" placeholder="Your Name" required />
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                placeholder="you@example.com"
-                required
-              />
-              <label htmlFor="message">Message</label>
-              <textarea
-                id="message"
-                rows={3}
-                placeholder="How can we help?"
-                required
-                defaultValue={""}
-              />
-              <button type="submit">Send Message</button>
-            </form>
-          </div>
-        </div>
-        <div class="text-divider">
-          <span>
-            Trusted by Businesses and Recognized by Leading Industry Bodies
-          </span>
-        </div>
-        <div className="footer-images">
-          <JobZImage src="images/footer1/1.png" alt="image" />
-          <JobZImage src="images/footer1/2.png" alt="image" />
-          <JobZImage src="images/footer1/3.png" alt="image" />
-          <JobZImage src="images/footer1/1.png" alt="image" />
-          <JobZImage src="images/footer1/2.png" alt="image" />
-          <JobZImage src="images/footer1/3.png" alt="image" />
-        </div>
-        {/* Modal */}
-        {isOpen && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <button onClick={() => setIsOpen(false)} className="modal-close">
-                <X className="icon" />
-              </button>
-              <div className="video-wrapper">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  title="Demo Video"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
+                  id="message"
+                  rows={3}
+                  placeholder="How can we help?"
+                  required
+                  defaultValue={""}
+                />
+                <button type="submit">Send Message</button>
+              </form>
             </div>
           </div>
-        )}
+          <div class="text-divider">
+            <span>
+              Trusted by Businesses and Recognized by Leading Industry Bodies
+            </span>
+          </div>
+          <div className="footer-images">
+            <JobZImage src="images/footer1/1.png" alt="image" />
+            <JobZImage src="images/footer1/2.png" alt="image" />
+            <JobZImage src="images/footer1/3.png" alt="image" />
+            <JobZImage src="images/footer1/1.png" alt="image" />
+            <JobZImage src="images/footer1/2.png" alt="image" />
+            <JobZImage src="images/footer1/3.png" alt="image" />
+          </div>
+          {/* Modal */}
+          {isOpen && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="modal-close"
+                >
+                  <X className="icon" />
+                </button>
+                <div className="video-wrapper">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="Demo Video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </section>
       <section className="main-class-container">
         <section className={`nav-section ${showNav ? "slide-in" : "hidden"}`}>
@@ -1425,20 +1505,28 @@ const TdClass01 = () => {
               class="main-section"
               id="included"
               ref={(el) => (sectionRefs.current["included"] = el)}
-              style={{ border: "1px solid red" }}
             >
               <section class="inner-section">
                 <h2 class="heading">
-                  <span className="heading-span">Class 2</span> Goods Guide
+                  <span className="heading-span">Tradmark Class 2</span> Goods
+                  Guide
                 </h2>
                 <p className="sub-heading">
                   Everything you need to know about Class 2 goods.
                 </p>
                 <div class="grid-layout">
                   <div className="left-contents">
-                    <span className="subheadings">
-                      This Class includes, in particular:
-                    </span>
+                    <h3
+                      className=""
+                      style={{
+                        marginBottom: "1rem",
+                        // border: "1px solid red",
+                        textAlign: "left",
+                      }}
+                    >
+                      This <span style={{ color: "#1967D2" }}>Class</span>{" "}
+                      includes, in particular:
+                    </h3>
                     <ul className="custom-list">
                       <li>
                         <FaCheckCircle
@@ -1518,14 +1606,16 @@ const TdClass01 = () => {
                     <span class="subheadingss">
                       Class 2 Goods: List and Guide
                     </span>
-                    <div class="search-bars">
-                      <div class="search-input-container">
+                    <div className="search-bars">
+                      <div class="search-bar">
                         <input
                           type="text"
-                          class="search-input"
-                          placeholder="Search related goods and products..."
+                          placeholder="Search for products..."
                         />
-                        <IoSearch size={25} />
+
+                        <button class="search-btn">
+                          <span class="icon">🔍</span> Search
+                        </button>
                       </div>
                     </div>
                     <div class="right-container">
@@ -1544,19 +1634,53 @@ const TdClass01 = () => {
                           </React.Fragment>
                         ))}
                       </div>
-                      {/* <div class="scroll-button-down" onClick={scrollDown}>
-                      <BiArrowToBottom size={20} />
-                    </div>
-                    <div class="scroll-button-up" onClick={scrollUp}>
-                      <BiArrowToTop size={20} />
-                    </div> */}
-                      <div className="scroll-buttons">
-                        <button className="scroll-btn" onClick={scrollDown}>
-                          <ArrowUp size={18} />
-                        </button>
-                        <button className="scroll-btn" onClick={scrollUp}>
-                          <ArrowDown size={18} />
-                        </button>
+
+                      {/* <div className="scroll-buttons">
+                        <div className="scroll-btn" onClick={scrollUp}>
+                          <IoChevronUpOutline size={18} />
+                        </div>
+                        <div className="scroll-btn" onClick={scrollDown}>
+                          <IoChevronDownOutline size={18} />
+                        </div>
+                      </div> */}
+                      <div
+                        className="scroll-buttons"
+                        style={{
+                          marginTop: "10px",
+                          display: "flex",
+                          gap: "10px",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <div
+                          className={`scroll-btn ${
+                            isAtTop ? "disabled" : "active"
+                          }`}
+                          onClick={scrollUp}
+                          style={{
+                            color: "#fff",
+                            background: isAtTop ? "gray" : "",
+                            color: isAtTop ? "#666" : "#3e649a",
+                            // border: "1px solid #ccc",
+                            cursor: isAtTop ? "not-allowed" : "pointer",
+                          }}
+                        >
+                          <IoChevronUpOutline size={18} />
+                        </div>
+                        <div
+                          className={`scroll-btn ${
+                            isAtBottom ? "disabled" : "active"
+                          }`}
+                          onClick={scrollDown}
+                          style={{
+                            background: isAtBottom ? "gray " : "",
+                            color: isAtBottom ? "#666" : "#3e649a",
+                            // border: "1px solid #ccc",
+                            cursor: isAtBottom ? "not-allowed" : "pointer",
+                          }}
+                        >
+                          <IoChevronDownOutline size={18} />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1603,7 +1727,10 @@ const TdClass01 = () => {
                     <table style={{ marginBottom: "2rem" }}>
                       <thead>
                         <tr>
-                          <th style={{ color: "#374151" }} className="th">
+                          <th
+                            style={{ color: "#374151" }}
+                            className="th subheadingss"
+                          >
                             Related Classes
                           </th>
                         </tr>
@@ -1672,12 +1799,12 @@ const TdClass01 = () => {
 
                     {/* Features */}
                     <div className="features">
-                      <div className="features-benifites">
+                      <div className="features-benifite">
                         <div
-                          className="feature"
+                          className="expertise-feature"
                           // style={{ marginBottom: "3rem" }}
                         >
-                          <div className="features-text">
+                          <div className="expertise-features-text">
                             <h4
                               className="feature-titles"
                               // style={{ paddingRight: "1.5rem" }}
@@ -1685,7 +1812,7 @@ const TdClass01 = () => {
                               Trademark Nuances
                             </h4>
 
-                            <div className="icons-div">
+                            <div className="icons-di">
                               {" "}
                               <ShieldCheck
                                 className="feature-icons"
@@ -1694,33 +1821,33 @@ const TdClass01 = () => {
                             </div>
                           </div>
 
-                          <p className="feature-text">
+                          <p className="expertise-feature-text">
                             In-depth knowledge of Class 25 goods & services to
                             safeguard your apparel brand.
                           </p>
                         </div>
-                        <div className="feature">
-                          <div className="features-text">
+                        <div className="expertise-feature">
+                          <div className="expertise-features-text">
                             <h4 className="feature-titles">
                               Complete Legal Landscape
                             </h4>
-                            <div className="icons-div">
+                            <div className="icons-di">
                               {" "}
                               <Landmark className="feature-icons" size={20} />
                             </div>
                           </div>
-                          <p className="feature-text">
+                          <p className="expertise-feature-text">
                             Comprehensive navigation of the fashion law
                             ecosystem to secure long-term protection.
                           </p>
                         </div>
                       </div>
-                      <div className="features-benifites">
+                      <div className="features-benifite">
                         <div
-                          className="feature"
+                          className="expertise-feature"
                           // style={{ marginBottom: "3rem" }}
                         >
-                          <div className="features-text">
+                          <div className="expertise-features-text">
                             {/* <AlertTriangle
                               className="feature-icons"
                               size={25}
@@ -1728,7 +1855,7 @@ const TdClass01 = () => {
                             <h4 className="feature-titles">
                               Conflict Anticipation
                             </h4>
-                            <div className="icons-div">
+                            <div className="icons-di">
                               {" "}
                               <AlertTriangle
                                 className="feature-icons"
@@ -1736,19 +1863,19 @@ const TdClass01 = () => {
                               />
                             </div>
                           </div>
-                          <p className="feature-text">
+                          <p className="expertise-feature-text">
                             Strategies to foresee and mitigate potential brand
                             conflicts.
                           </p>
                         </div>
-                        <div className="feature">
-                          <div className="features-text">
+                        <div className="expertise-feature">
+                          <div className="expertise-features-text">
                             <h4 className="feature-titles">Brand Identity</h4>
-                            <div className="icons-div">
+                            <div className="icons-di">
                               <Layers className="feature-icons" size={20} />
                             </div>
                           </div>
-                          <p className="feature-text">
+                          <p className="expertise-features-text">
                             Building a strong, defensible brand identity in a
                             competitive market.
                           </p>
@@ -1768,71 +1895,100 @@ const TdClass01 = () => {
             >
               <div className="features-header-whychoose">
                 {/* <p className="overline-whychoose">OVERLINE TEXT</p> */}
-                <h1 className="main-title-whychoose">Our Features</h1>
+                <h1 className="main-title-whychoose">
+                  Who Should Register Under Trademark{" "}
+                  <span style={{ color: "#1967D2" }}>Class 25?</span>
+                </h1>
                 <p className="subtitle-whychoose">
-                  A short and simple subheading can be added here
+                  Trademark Class 1 is mainly for chemicals and chemical-related
+                  products.
                 </p>
               </div>
               <div className="features-container-whychoose">
                 {/* Left Features */}
                 <div className="features-list-whychoose">
                   <div className="feature-item-whychoose">
-                    <span className="feature-icon-whychoose">⚫</span>
+                    {/* <span className="feature-icon-whychoose">⚫</span> */}
+                    <FaFlask
+                      // className="whocan-ico"
+                      style={{
+                        width: "15%",
+                        height: "20%",
+                        color: "#1967D2",
+                        marginTop: "0.5rem",
+                      }}
+                    />
                     <div>
-                      <h3 className="feature-title-whychoose">Feature</h3>
+                      <h3 className="feature-title-whychoose">
+                        Chemical manufacturers
+                      </h3>
                       <p className="feature-text-whychoose">
-                        Featured and content section can be added here
-                        (description or information)
+                        companies producing industrial or scientific chemicals.
                       </p>
                     </div>
                   </div>
                   <div className="feature-item-whychoose">
-                    <span className="feature-icon-whychoose">⚫</span>
+                    {/* <span className="feature-icon-whychoose">⚫</span> */}
+                    <FaSeedling className="whocan-icon" />
                     <div>
-                      <h3 className="feature-title-whychoose">Feature</h3>
+                      <h3 className="feature-title-whychoose">
+                        Fertilizer companies
+                      </h3>
                       <p className="feature-text-whychoose">
-                        Featured and content section can be added here
-                        (description or information)
+                        businesses making or selling agricultural,
+                        horticultural, or forestry fertilizers.
                       </p>
                     </div>
                   </div>
                   <div className="feature-item-whychoose">
-                    <span className="feature-icon-whychoose">⚫</span>
+                    {/* <span className="feature-icon-whychoose">⚫</span> */}
+                    <FaCubes className="whocan-icon" />
                     <div>
-                      <h3 className="feature-title-whychoose">Feature</h3>
+                      <h3 className="feature-title-whychoose">
+                        Plastic & resin companies
+                      </h3>
                       <p className="feature-text-whychoose">
-                        Featured and content section can be added here
-                        (description or information)
+                        those producing unprocessed artificial resins and
+                        unprocessed plastics.
                       </p>
                     </div>
                   </div>
                   <div className="feature-item-whychoose">
-                    <span className="feature-icon-whychoose">⚫</span>
+                    {/* <span className="feature-icon-whychoose">⚫</span> */}
+                    <FaTools className="whocan-icon" />
                     <div>
-                      <h3 className="feature-title-whychoose">Feature</h3>
+                      <h3 className="feature-title-whychoose">
+                        Industrial suppliers
+                      </h3>
                       <p className="feature-text-whychoose">
-                        Featured and content section can be added here
-                        (description or information)
+                        supplying fire-extinguishing compositions, adhesives for
+                        industrial use, or tanning substances.
                       </p>
                     </div>
                   </div>
                   <div className="feature-item-whychoose">
-                    <span className="feature-icon-whychoose">⚫</span>
+                    {/* <span className="feature-icon-whychoose">⚫</span> */}
+                    <FaFlask className="whocan-icon" />
                     <div>
-                      <h3 className="feature-title-whychoose">Feature</h3>
+                      <h3 className="feature-title-whychoose">
+                        Raw material providers
+                      </h3>
                       <p className="feature-text-whychoose">
-                        Featured and content section can be added here
-                        (description or information)
+                        businesses dealing in chemical raw materials for
+                        manufacturing and industrial applications.
                       </p>
                     </div>
                   </div>
                   <div className="feature-item-whychoose">
-                    <span className="feature-icon-whychoose">⚫</span>
+                    {/* <span className="feature-icon-whychoose">⚫</span> */}
+                    <FaMicroscope className="whocan-icon" />
                     <div>
-                      <h3 className="feature-title-whychoose">Feature</h3>
+                      <h3 className="feature-title-whychoose">
+                        Photographic & scientific chemical suppliers
+                      </h3>
                       <p className="feature-text-whychoose">
-                        Featured and content section can be added here
-                        (description or information)
+                        companies providing chemicals used in photography,
+                        laboratory research, and science.
                       </p>
                     </div>
                   </div>
@@ -1876,13 +2032,13 @@ const TdClass01 = () => {
                 aria-label="Call to action buttons"
               >
                 <button
-                  className="btn btn-primary"
+                  className=" btn btn-primary"
                   onClick={() => (window.location = "#book")}
                 >
                   Schedule a Free Consultation
                 </button>
                 <button
-                  className="btn btn-secondary"
+                  className="btn btn-secondarys"
                   onClick={() => (window.location = "#learn")}
                 >
                   Learn More
@@ -1898,218 +2054,214 @@ const TdClass01 = () => {
           </div>
         </section>
         {/* benifite section */}
-        <section className="class-main-container">
-          <section className="class-container">
-            <section className="benifite-ms">
-              <section
-                class="benefits-section"
-                id="benefits"
-                ref={(el) => (sectionRefs.current["benefits"] = el)}
-              >
-                <div class="benefits-header">
-                  <h3 class="benefits-title">
-                    Benefits of Trademarking Your Brand
-                  </h3>
-                  <p class="benefits-subtitle">
-                    A trademark isn’t just a legal step-it’s a strategic
-                    investment that protects, strengthens, and grows your brand.
+
+        <section className="benifite-ms">
+          <section
+            class="benefits-section"
+            id="benefits"
+            ref={(el) => (sectionRefs.current["benefits"] = el)}
+          >
+            <div class="benefits-header">
+              <h3 class="benefits-title">
+                Benefits of Trademarking Your Brand
+              </h3>
+              <p class="benefits-subtitle">
+                A trademark isn’t just a legal step-it’s a strategic investment
+                that protects, strengthens, and grows your brand.
+              </p>
+            </div>
+
+            <div class="benefits-main-content">
+              <div class="features-grid">
+                <div class="feature-item-left">
+                  <div class="feature-inner">
+                    <UserCheck className="feature-icon" />
+                    <h3 class="feature-title">Gain Exclusive Ownership</h3>
+                    <p class="feature-description">
+                      Secure the exclusive right to your brand name and logo,
+                      keeping competitors at bay.
+                    </p>
+                  </div>
+
+                  <div class="feature-inner">
+                    <ShieldCheck className="feature-icon" />
+                    <h3 class="feature-title">Protect Your Reputation</h3>
+                    <p class="feature-description">
+                      Ensure your brand identity stays unique, trustworthy, and
+                      credible in the marketplace.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="feature-item-bottom">
+                  <Tag className="feature-icon" />
+                  <h3 class="feature-title">Identifies Source</h3>
+                  <p class="feature-description">
+                    Shows who makes or provides the product/service so customers
+                    know the origin.
                   </p>
                 </div>
 
-                <div class="benefits-main-content">
-                  <div class="features-grid">
-                    <div class="feature-item-left">
-                      <div class="feature-inner">
-                        <UserCheck className="feature-icon" />
-                        <h3 class="feature-title">Gain Exclusive Ownership</h3>
-                        <p class="feature-description">
-                          Secure the exclusive right to your brand name and
-                          logo, keeping competitors at bay.
-                        </p>
-                      </div>
+                <div class="feature-item-right">
+                  <div class="feature-inner">
+                    <ShieldCheck className="feature-icon" />
+                    <h3 class="feature-title">Legal Protection</h3>
+                    <p class="feature-description">
+                      Gives the owner the right to stop others from using
+                      similar marks.
+                    </p>
+                  </div>
 
-                      <div class="feature-inner">
-                        <ShieldCheck className="feature-icon" />
-                        <h3 class="feature-title">Protect Your Reputation</h3>
-                        <p class="feature-description">
-                          Ensure your brand identity stays unique, trustworthy,
-                          and credible in the marketplace.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div class="feature-item-bottom">
-                      <Tag className="feature-icon" />
-                      <h3 class="feature-title">Identifies Source</h3>
-                      <p class="feature-description">
-                        Shows who makes or provides the product/service so
-                        customers know the origin.
-                      </p>
-                    </div>
-
-                    <div class="feature-item-right">
-                      <div class="feature-inner">
-                        <ShieldCheck className="feature-icon" />
-                        <h3 class="feature-title">Legal Protection</h3>
-                        <p class="feature-description">
-                          Gives the owner the right to stop others from using
-                          similar marks.
-                        </p>
-                      </div>
-
-                      <div class="feature-inner">
-                        <Gavel className="feature-icon" />
-                        <h3 class="feature-title">Power of Legal Action</h3>
-                        <p class="feature-description">
-                          Enforce your rights against unauthorized use and
-                          defend your brand effectively.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div class="center-image-container">
-                      <div class="image-wrapper">
-                        <img
-                          src={benifite}
-                          alt="SHIFT Hat"
-                          class="center-image"
-                        />
-                      </div>
-                    </div>
+                  <div class="feature-inner">
+                    <Gavel className="feature-icon" />
+                    <h3 class="feature-title">Power of Legal Action</h3>
+                    <p class="feature-description">
+                      Enforce your rights against unauthorized use and defend
+                      your brand effectively.
+                    </p>
                   </div>
                 </div>
 
-                <div class="twm-read-more" style={{ marginTop: "1rem" }}>
-                  <div class="site-button">Book Call</div>
-                </div>
-              </section>
-            </section>
-            {/* Process of Registration */}
-
-            <section
-              class="registration-process-main"
-              id="process"
-              ref={(el) => (sectionRefs.current["process"] = el)}
-            >
-              <h2 class="process-title">Process Of Registration</h2>
-              <div className="registration-process">
-                <div class="process-image-container">
-                  <img
-                    src={slides[currentIndex].img}
-                    alt={`Slide ${currentIndex + 1}`}
-                    class="process-image"
-                  />
-                </div>
-
-                <div class="process-content">
-                  <div class="bullets-and-text">
-                    <div class="bullet-container">
-                      {slides.map((_, index) => (
-                        <span
-                          key={index}
-                          onClick={() => handleBulletClick(index)}
-                          class={`bullet ${
-                            currentIndex === index
-                              ? "bullet-active"
-                              : "bullet-inactive"
-                          }`}
-                        ></span>
-                      ))}
-                    </div>
-                    <div class="process-steps-list">
-                      <div>
-                        <span className="process-number">01</span>
-                        <p class="process-step">Trademark Search</p>
-                      </div>
-                      <div>
-                        <span className="process-number">02</span>
-                        <p class="process-step">Filling The Application</p>
-                      </div>
-
-                      <div>
-                        <span className="process-number">03</span>
-                        <p class="process-step">Examination</p>
-                      </div>
-
-                      <div>
-                        <span className="process-number">04</span>
-                        <p class="process-step">Public Review</p>
-                      </div>
-
-                      <div>
-                        <span className="process-number">05</span>
-                        <p class="process-step">Final Registration</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            {/* </section> */}
-            {/* Testimonial  */}
-            <div className="testimonials-container">
-              <div>
-                <div className="testimonials-header">
-                  <p className="overlines">OVERLINE TEXT</p>
-                  <h2 className="testimonial-title">Customer testimonials</h2>
-                  <p className="subtitle">
-                    short and simple subheading can be added here
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <div className="testimonials-sliders-wrapper">
-                  <div
-                    className="testimonials-sliders"
-                    style={{
-                      transform: `translateX(-${currentIndex2 * 90}%)`,
-                    }} // 👈 90% slide
-                  >
-                    {testimonials.map((t, index) => (
-                      <div key={index} className="testimonial-cards">
-                        <h3 className="company">{t.company}</h3>
-                        <div className="stars">
-                          {Array.from({ length: t.rating }, (_, i) => (
-                            <FaStar key={i} color="#facc15" />
-                          ))}
-                        </div>
-                        <p className="testimonial-text">“{t.text}”</p>
-                        <div className="testimonial-user">
-                          <FaUserCircle size={40} />
-                          <div
-                            style={{ display: "flex", flexDirection: "column" }}
-                          >
-                            <span className="user-name">{t.name}</span>
-                            <span className="user-role">{t.role}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="testimonial-bdt">
-                  <div className="dots">
-                    {testimonials.map((_, i) => (
-                      <span
-                        key={i}
-                        className={`dot ${i === currentIndex2 ? "active" : ""}`}
-                      ></span>
-                    ))}
-                  </div>
-                  <div className="testimonial-controls">
-                    <button onClick={prevSlide} className="nav-btn">
-                      <FaArrowLeft />
-                    </button>
-                    <button onClick={nextSlide} className="nav-btn">
-                      <FaArrowRight />
-                    </button>
+                <div class="center-image-container">
+                  <div class="image-wrapper">
+                    <img src={benifite} alt="SHIFT Hat" class="center-image" />
                   </div>
                 </div>
               </div>
             </div>
-            {/* whay choose us */}
+
+            <div class="twm-read-more" style={{ marginTop: "1rem" }}>
+              <div class="site-button">Book Call</div>
+            </div>
+          </section>
+        </section>
+
+        {/* Process of Registration */}
+
+        <section
+          class="registration-process-main"
+          id="process"
+          ref={(el) => (sectionRefs.current["process"] = el)}
+        >
+          <h2 class="process-title">Process Of Registration</h2>
+          <div className="registration-process">
+            <div class="process-image-container">
+              <img
+                src={slides[currentIndex].img}
+                alt={`Slide ${currentIndex + 1}`}
+                class="process-image"
+              />
+            </div>
+
+            <div class="process-content">
+              <div class="bullets-and-text">
+                <div class="bullet-container">
+                  {slides.map((_, index) => (
+                    <span
+                      key={index}
+                      onClick={() => handleBulletClick(index)}
+                      class={`bullet ${
+                        currentIndex === index
+                          ? "bullet-active"
+                          : "bullet-inactive"
+                      }`}
+                    ></span>
+                  ))}
+                </div>
+                <div class="process-steps-list">
+                  <div>
+                    <span className="process-number">01</span>
+                    <p class="process-step">Trademark Search</p>
+                  </div>
+                  <div>
+                    <span className="process-number">02</span>
+                    <p class="process-step">Filling The Application</p>
+                  </div>
+
+                  <div>
+                    <span className="process-number">03</span>
+                    <p class="process-step">Examination</p>
+                  </div>
+
+                  <div>
+                    <span className="process-number">04</span>
+                    <p class="process-step">Public Review</p>
+                  </div>
+
+                  <div>
+                    <span className="process-number">05</span>
+                    <p class="process-step">Final Registration</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonial  */}
+        <div className="testimonials-container">
+          <div>
+            <div className="testimonials-header">
+              <p className="overlines">OVERLINE TEXT</p>
+              <h2 className="testimonial-title">Customer testimonials</h2>
+              <p className="subtitle">
+                short and simple subheading can be added here
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div className="testimonials-sliders-wrapper">
+              <div
+                className="testimonials-sliders"
+                style={{
+                  transform: `translateX(-${currentIndex2 * 90}%)`,
+                }} // 👈 90% slide
+              >
+                {testimonials.map((t, index) => (
+                  <div key={index} className="testimonial-cards">
+                    <h3 className="company">{t.company}</h3>
+                    <div className="stars">
+                      {Array.from({ length: t.rating }, (_, i) => (
+                        <FaStar key={i} color="#facc15" />
+                      ))}
+                    </div>
+                    <p className="testimonial-text">“{t.text}”</p>
+                    <div className="testimonial-user">
+                      <FaUserCircle size={40} />
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <span className="user-name">{t.name}</span>
+                        <span className="user-role">{t.role}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="testimonial-bdt">
+              <div className="dots">
+                {testimonials.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`dot ${i === currentIndex2 ? "active" : ""}`}
+                  ></span>
+                ))}
+              </div>
+              <div className="testimonial-controls">
+                <button onClick={prevSlide} className="nav-btn">
+                  <FaArrowLeft />
+                </button>
+                <button onClick={nextSlide} className="nav-btn">
+                  <FaArrowRight />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* whay choose us */}
+        <section className="class-main-container">
+          <section className="class-container">
             <section
               className="how-it-works-section"
               id="whyus"
@@ -2118,9 +2270,12 @@ const TdClass01 = () => {
               {/* Section Header */}
               <div className="how-it-works-header">
                 {/* <p className="how-it-works-overline">OVERLINE TEXT</p> */}
-                <h1 className="how-it-works-title">Learn how it works</h1>
+                <h1 className="how-it-works-title">Why Choose Us?</h1>
                 <p className="how-it-works-subtitle">
-                  A short and simple subheading can be added here
+                  We go beyond paperwork—we become your partner in protecting
+                  and growing your fashion brand. With clarity, transparency,
+                  and forward-thinking strategies, we bring both legal expertise
+                  and a modern approach to your journey.
                 </p>
               </div>
 
@@ -2136,10 +2291,12 @@ const TdClass01 = () => {
                   <div className="how-it-works-card">
                     <div className="how-it-works-number">1</div>
                     <div>
-                      <h3 className="how-it-works-card-title">Title here</h3>
+                      <h3 className="how-it-works-card-title">
+                        Tailored Strategies That Fit You
+                      </h3>
                       <p className="how-it-works-card-text">
-                        Long paragraph about how it works description can be
-                        added here (description or information)
+                        Whether launching a single product or scaling a full
+                        line, we craft legal solutions aligned with your vision.
                       </p>
                     </div>
                   </div>
@@ -2148,10 +2305,12 @@ const TdClass01 = () => {
                     <div className="how-it-works-card">
                       <div className="how-it-works-number">2</div>
                       <div>
-                        <h3 className="how-it-works-card-title">Title here</h3>
+                        <h3 className="how-it-works-card-title">
+                          Transparent, Predictable Cost
+                        </h3>
                         <p className="how-it-works-card-text">
-                          How it works description can be added here
-                          (description)
+                          Fixed-fee services mean no surprises—just clarity,
+                          value, and peace of min
                         </p>
                       </div>
                     </div>
@@ -2159,10 +2318,12 @@ const TdClass01 = () => {
                     <div className="how-it-works-card">
                       <div className="how-it-works-number">3</div>
                       <div>
-                        <h3 className="how-it-works-card-title">Title here</h3>
+                        <h3 className="how-it-works-card-title">
+                          End-to-End Guidance
+                        </h3>
                         <p className="how-it-works-card-text">
-                          How it works description can be added here
-                          (description)
+                          From research and filings to USPTO communication, we
+                          handle it all so .
                         </p>
                       </div>
                     </div>
@@ -2171,138 +2332,63 @@ const TdClass01 = () => {
                   <div className="how-it-works-card">
                     <div className="how-it-works-number">4</div>
                     <div>
-                      <h3 className="how-it-works-card-title">Title here</h3>
+                      <h3 className="how-it-works-card-title">
+                        {" "}
+                        End-to-End Guidance
+                      </h3>
                       <p className="how-it-works-card-text">
-                        Long paragraph about how it works description can be
-                        added here (description or information)
+                        From research and filings to USPTO communication, we
+                        handle it all so you can stay focused on growth
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
             </section>
-            {/* FAQs */}
-            <section
-              className="faq-main-sections"
-              id="faq"
-              ref={(el) => (sectionRefs.current["faq"] = el)}
-            >
-              <div className="faqs-containers">
-                {/* Left Side */}
-                <div className="faqs-lefts">
-                  <p className="faq-labels">FAQS</p>
-                  <h2 className="faq-titles">
-                    Questions? We're glad you asked
-                  </h2>
-                  <p className="faq-subtitles">
-                    Get clear, expert answers to the most important questions
-                    about your care and your child’s health.
-                  </p>
-                </div>
-
-                {/* Right Side */}
-                <div className="faqs-rights">
-                  {faqs.map((faq, index) => (
-                    <div
-                      key={index}
-                      className={`faq-items ${
-                        openIndex === index ? "active" : ""
-                      }`}
-                      onClick={() => toggleFAQ(index)}
-                    >
-                      <div className="faq-questions">
-                        <span>
-                          {index + 1}. {faq.question}
-                        </span>
-                        <span className="faq-icons">
-                          {openIndex === index ? "−" : "+"}
-                        </span>
-                      </div>
-                      <div
-                        className="faq-answers-wrapper"
-                        ref={(el) => (faqRefs.current[index] = el)}
-                      >
-                        <div className="faq-answers">{faq.answer}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-            {/* contact us */}
-            <section class="brand-security-section">
-              <div class="brand-security-content">
-                <p class="brand-security-text">
-                  The right trademark class is more than a legal detail; it's a
-                  strategic asset for your business.<br></br> By securing your
-                  brand's place in the market, you're not just protecting your
-                  name—you're investing in your future growth and success.
-                </p>
-                <p class="brand-security-callout">
-                  Ready to Secure Your Brand?
-                </p>
-                <p class="brand-security-text">
-                  You've taken the first step by learning about trademarking.
-                  Let us help you take the next, ensuring your brand is
-                  protected and set for success.
-                </p>
-                <button class="brand-security-button">
-                  Schedule a Free Consultation
-                </button>
-              </div>
-
-              <div class="brand-security-image-container">
-                <img src="" alt="" class="brand-security-image" />
-              </div>
-            </section>
-            {/* Related Articles Links
-             */}
-            <section
-              class="articles-section"
-              id="articles"
-              ref={(el) => (sectionRefs.current["articles"] = el)}
-            >
-              <div class="articles-header">
-                <h6 class="articles-title">Related Articles Links</h6>
-              </div>
-              <section class="articles-grid">
-                <div
-                  class="article-card"
-                  style={{ backgroundImage: `url(${urlImage})` }}
-                >
-                  <h1 class="article-title">Trademark</h1>
-                  <p class="article-excerpt">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Blanditiis, vitae.
-                  </p>
-                  <button class="article-button">more</button>
-                </div>
-
-                <div
-                  class="article-card"
-                  style={{ backgroundImage: `url(${urlImage})` }}
-                >
-                  <h1 class="article-title">Trademark</h1>
-                  <p class="article-excerpt">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Blanditiis, vitae.
-                  </p>
-                  <button class="article-button">more</button>
-                </div>
-                <div
-                  class="article-card"
-                  style={{ backgroundImage: `url(${urlImage})` }}
-                >
-                  <h1 class="article-title">Trademark</h1>
-                  <p class="article-excerpt">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Blanditiis, vitae.
-                  </p>
-                  <button class="article-button">more</button>
-                </div>
-              </section>
-            </section>
           </section>
+        </section>
+        <section
+          className="faq-main-sections"
+          id="faq"
+          ref={(el) => (sectionRefs.current["faq"] = el)}
+        >
+          <div className="faqs-containers">
+            {/* Left Side */}
+            <div className="faqs-lefts">
+              <p className="faq-labels">FAQS</p>
+              <h2 className="faq-titles">Questions? We're glad you asked</h2>
+              <p className="faq-subtitles">
+                Get clear, expert answers to the most important questions about
+                your care and your child’s health.
+              </p>
+            </div>
+
+            {/* Right Side */}
+            <div className="faqs-rights">
+              {faqs.map((faq, index) => (
+                <div
+                  key={index}
+                  className={`faq-items ${openIndex === index ? "active" : ""}`}
+                  onClick={() => toggleFAQ(index)}
+                >
+                  <div className="faq-questions">
+                    <span>
+                      {index + 1}. {faq.question}
+                    </span>
+                    <span className="faq-icons">
+                      {openIndex === index ? "−" : "+"}
+                    </span>
+                  </div>
+                  <div
+                    className="faq-answers-wrapper"
+                    ref={(el) => (faqRefs.current[index] = el)}
+                  >
+                    <div className="faq-answers">{faq.answer}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
       </section>
     </>

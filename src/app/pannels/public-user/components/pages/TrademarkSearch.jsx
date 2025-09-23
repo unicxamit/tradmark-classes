@@ -2,12 +2,15 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./TrademarkSearch.css"; // Import external CSS
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { publicUser } from "../../../../../globals/route-names";
-import { Link } from "lucide-react";
+// import { Link } from "lucide-react";
+import classesData from "../tdClassesPages/tradmarkClassesDynamicDataList";
 
+import "../tdClassCss/classList.css";
 const TrademarkSearch = () => {
   // State variables
+  console.log(classesData, "classesData");
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [classDetailInput, setClassDetailInput] = useState("");
@@ -848,6 +851,28 @@ const TrademarkSearch = () => {
                   >
                     class1
                   </NavLink>
+
+                  {/* tradmark class  */}
+                  <div className="class-list-container">
+                    {classesData.map((cls) => (
+                      <>
+                        {console.log(cls.title, "claskdjdj")}
+                        <Link
+                          key={cls.id}
+                          to={`/class/${cls.id}`}
+                          className="class-card"
+                        >
+                          <h3 className="class-title">
+                            {console.log(cls.title)}
+                          </h3>
+                          {/* <p className="class-description">
+                            {cls.understanding}
+                          </p> */}
+                          <span className="view-details">View Details →</span>
+                        </Link>
+                      </>
+                    ))}
+                  </div>
                 </div>
               )}
           </>
