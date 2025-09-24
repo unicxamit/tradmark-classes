@@ -216,7 +216,10 @@ function PublicUserRoutes() {
       />
 
       {/* tradmark classes */}
-      <Route path={publicUser.tdclasses.TdClass01} element={<TdClass01 />} />
+      <Route
+        path={`${publicUser.tdclasses.TdClass01}/:id`}
+        element={<TdClass01 />}
+      />
 
       <Route path={publicUser.candidate.GRID} element={<CandidateGridPage />} />
       <Route path={publicUser.candidate.LIST} element={<CandidateListPage />} />

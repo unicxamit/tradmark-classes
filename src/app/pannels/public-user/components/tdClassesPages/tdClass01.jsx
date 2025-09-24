@@ -10,12 +10,14 @@ import {
   FaTimesCircle,
   FaTools,
 } from "react-icons/fa";
+import { BiSolidMessageRounded } from "react-icons/bi";
 import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 import { BiArrowToBottom, BiArrowToTop } from "react-icons/bi";
 import urlImage from "../calculatorImage/gst.png";
 import { IoSearch } from "react-icons/io5";
 import { PlayCircle, X } from "lucide-react";
 import contact from "../tdClassImages/contact us.png";
+import { PiArrowElbowRightUpThin } from "react-icons/pi";
 import {
   Globe2,
   AlertTriangle,
@@ -36,7 +38,8 @@ import {
   FaArrowRight,
   FaUserCircle,
 } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { LuMessageSquareShare } from "react-icons/lu";
+import { useNavigate, useParams } from "react-router-dom";
 import whoshould from "../tdClassImages/whoshouldregister.jpg";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import benifite from "../tdClassImages/benifite02.png";
@@ -55,6 +58,7 @@ import process02 from "../tdClassImages/process02Copy.png";
 import process03 from "../tdClassImages/process03Copy.png.jpg";
 import process04 from "../tdClassImages/process04.png";
 import process05 from "../tdClassImages/process05.png";
+import classesData from "./tradmarkClassesDynamicDataList";
 const sections = [
   { id: "class1", label: "Class1" },
   { id: "included", label: "Goods/Guide" },
@@ -73,14 +77,22 @@ const TdClass01 = () => {
   // Hero section search bar
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [cls, setCls] = useState(null);
   const navigate = useNavigate();
-  console.log(showDropdown, "showdropdown");
-  // const classes = Array.from({ length: 45 }, (_, i) => `Class ${i + 1}`);
+  // fetch data
+  const { id } = useParams();
+  console.log(cls, "cls data");
 
+  useEffect(() => {
+    const selectedClass = classesData.find((c) => String(c.id) === id);
+    setCls(selectedClass);
+  }, [id, cls]);
+
+  // fetch data
   const filteredClasses = classes.filter((cls) =>
     cls.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  console.log(filteredClasses, "filterclasses");
+  // console.log(filteredClasses, "filterclasses");
   const handleClassClick = (cls) => {
     navigate(`/class/${cls}`);
   };
@@ -90,8 +102,8 @@ const TdClass01 = () => {
   const [isAtTop, setIsAtTop] = useState(true);
   const [isAtBottom, setIsAtBottom] = useState(false);
 
-  const ITEMS_PER_CLICK = 10;
-  const COLUMNS = 3;
+  const ITEMS_PER_CLICK = 2;
+  const COLUMNS = 1;
 
   const getRowHeight = () => {
     const grid = gridRef.current;
@@ -371,83 +383,83 @@ const TdClass01 = () => {
       }
     });
   }, [openIndex]);
-  const faqs = [
-    {
-      question: "When should I schedule my first prenatal visit?",
-      answer:
-        "You should schedule your first prenatal visit as soon as you know you are pregnant, ideally around 6–8 weeks.",
-    },
-    {
-      question: "What vaccines are recommended during pregnancy?",
-      answer:
-        "Your provider may recommend flu and Tdap vaccines during pregnancy to protect both you and your baby.",
-    },
-    {
-      question: "Is ultrasound imaging safe for my baby?",
-      answer:
-        "Yes, ultrasound imaging is safe and commonly used to monitor your baby’s growth and development.",
-    },
-    {
-      question: "What is included in newborn care visits?",
-      answer:
-        "Newborn visits usually include growth checks, vaccinations, and guidance on feeding and development.",
-    },
-    {
-      question: "Can I bring both parents to appointments?",
-      answer:
-        "Yes, in most cases both parents or a support person can attend your appointments.",
-    },
-    {
-      question: "How often should I see my doctor during pregnancy?",
-      answer:
-        "Most women see their provider every 4 weeks until 28 weeks, then every 2 weeks until 36 weeks, and weekly until delivery.",
-    },
-    // {
-    //   question: "Do I need special nutrition during pregnancy?",
-    //   answer:
-    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    // },
-    // {
-    //   question: "Do I need special nutrition during pregnancy?",
-    //   answer:
-    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    // },
-    // {
-    //   question: "Do I need special nutrition during pregnancy?",
-    //   answer:
-    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    // },
-    // {
-    //   question: "Do I need special nutrition during pregnancy?",
-    //   answer:
-    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    // },
-    // {
-    //   question: "Do I need special nutrition during pregnancy?",
-    //   answer:
-    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    // },
-    // {
-    //   question: "Do I need special nutrition during pregnancy?",
-    //   answer:
-    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    // },
-    // {
-    //   question: "Do I need special nutrition during pregnancy?",
-    //   answer:
-    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    // },
-    // {
-    //   question: "Do I need special nutrition during pregnancy?",
-    //   answer:
-    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    // },
-    // {
-    //   question: "Do I need special nutrition during pregnancy?",
-    //   answer:
-    //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
-    // },
-  ];
+  // const faqs = [
+  //   {
+  //     question: "When should I schedule my first prenatal visit?",
+  //     answer:
+  //       "You should schedule your first prenatal visit as soon as you know you are pregnant, ideally around 6–8 weeks.",
+  //   },
+  //   {
+  //     question: "What vaccines are recommended during pregnancy?",
+  //     answer:
+  //       "Your provider may recommend flu and Tdap vaccines during pregnancy to protect both you and your baby.",
+  //   },
+  //   {
+  //     question: "Is ultrasound imaging safe for my baby?",
+  //     answer:
+  //       "Yes, ultrasound imaging is safe and commonly used to monitor your baby’s growth and development.",
+  //   },
+  //   {
+  //     question: "What is included in newborn care visits?",
+  //     answer:
+  //       "Newborn visits usually include growth checks, vaccinations, and guidance on feeding and development.",
+  //   },
+  //   {
+  //     question: "Can I bring both parents to appointments?",
+  //     answer:
+  //       "Yes, in most cases both parents or a support person can attend your appointments.",
+  //   },
+  //   {
+  //     question: "How often should I see my doctor during pregnancy?",
+  //     answer:
+  //       "Most women see their provider every 4 weeks until 28 weeks, then every 2 weeks until 36 weeks, and weekly until delivery.",
+  //   },
+  //   // {
+  //   //   question: "Do I need special nutrition during pregnancy?",
+  //   //   answer:
+  //   //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+  //   // },
+  //   // {
+  //   //   question: "Do I need special nutrition during pregnancy?",
+  //   //   answer:
+  //   //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+  //   // },
+  //   // {
+  //   //   question: "Do I need special nutrition during pregnancy?",
+  //   //   answer:
+  //   //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+  //   // },
+  //   // {
+  //   //   question: "Do I need special nutrition during pregnancy?",
+  //   //   answer:
+  //   //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+  //   // },
+  //   // {
+  //   //   question: "Do I need special nutrition during pregnancy?",
+  //   //   answer:
+  //   //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+  //   // },
+  //   // {
+  //   //   question: "Do I need special nutrition during pregnancy?",
+  //   //   answer:
+  //   //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+  //   // },
+  //   // {
+  //   //   question: "Do I need special nutrition during pregnancy?",
+  //   //   answer:
+  //   //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+  //   // },
+  //   // {
+  //   //   question: "Do I need special nutrition during pregnancy?",
+  //   //   answer:
+  //   //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+  //   // },
+  //   // {
+  //   //   question: "Do I need special nutrition during pregnancy?",
+  //   //   answer:
+  //   //     "Yes, a balanced diet with prenatal vitamins, iron, and folic acid is essential for you and your baby’s health.",
+  //   // },
+  // ];
 
   const productList = [
     {
@@ -1271,6 +1283,10 @@ const TdClass01 = () => {
       fontSize: "1.3rem",
     },
   };
+  if (!cls) {
+    return <p>Loading...</p>; // ya null, ya spinner
+  }
+
   return (
     <>
       {/* breakcram */}
@@ -1287,14 +1303,14 @@ const TdClass01 = () => {
                   <li>
                     <a href="/trademark">Trademark</a>
                   </li>
-                  <li class="active">Class 1</li>
+                  <li class="active">Class {cls?.class}</li>
                 </ul>
               </nav>
               <div className="hero-lefts">
                 <h1 className="class-heading">
-                  Protect Your Apparel &amp; Fashion Brand <br />
+                  {cls?.heroTitle} <br />
                   <span className="highlight">
-                    Trademark <span>Class 25</span>
+                    Trademark <span>Class {cls?.class}</span>
                   </span>
                 </h1>
 
@@ -1304,7 +1320,13 @@ const TdClass01 = () => {
                 </p>
 
                 <div className="btn-group">
-                  <button className="btn-primarys">Get Started</button>
+                  <button className="btn-primarys">
+                    Get Started
+                    <PiArrowElbowRightUpThin
+                      size={28}
+                      style={{ padding: "0 0.2rem 0.5rem 0" }}
+                    />
+                  </button>
                   <button
                     onClick={() => setIsOpen(true)}
                     className="btn-outlines"
@@ -1334,7 +1356,10 @@ const TdClass01 = () => {
                       className="search-input"
                     />
                     <button className="search-btn">
-                      <span className="icon">🔍</span> Search
+                      <span className="icon">
+                        <IoSearch size={18} />
+                      </span>{" "}
+                      Search
                     </button>
                   </div>
 
@@ -1352,14 +1377,6 @@ const TdClass01 = () => {
                     </div>
                   )}
                 </div>
-
-                {/* Tags */}
-                {/* <div className="tag-list">
-                <span className="tag">Footwear</span>
-                <span className="tag">Leather Goods</span>
-                <span className="tag">Accessories</span>
-                <span className="tag">Jewelry</span>
-              </div> */}
               </div>
             </div>
             <div className="contact-form-card">
@@ -1382,7 +1399,13 @@ const TdClass01 = () => {
                   required
                   defaultValue={""}
                 />
-                <button type="submit">Send Message</button>
+                <button type="submit">
+                  <LuMessageSquareShare
+                    size={28}
+                    style={{ padding: "0 0.2rem 0 0" }}
+                  />{" "}
+                  Send Message
+                </button>
               </form>
             </div>
           </div>
@@ -1462,40 +1485,14 @@ const TdClass01 = () => {
               <div class="understading-grid">
                 <div>
                   <h2 class="understand-heading">
-                    Understanding-Trademark <span>Class 1</span>
+                    Understanding-Trademark <span>Class {cls?.class}</span>
                   </h2>
                   <p className="understading-text" style={{ color: "#333333" }}>
-                    Trademark Class 1 is the legal category for chemicals used
-                    in industry, science, and photography, as well as chemicals
-                    for agricultural, horticultural, and forestry purposes. It
-                    also includes unprocessed artificial resins, unprocessed
-                    plastics, fertilizers, fire-extinguishing compositions, and
-                    tanning substances.
-                    <br />
-                    <span className="body-span">
-                      This class is foundational for any business dealing with
-                      chemical products, raw materials, or related industrial
-                      goods. A trademark in this class helps establish a unique
-                      identity and ensures consumers can easily identify your
-                      products in the marketplace. The following sections will
-                      provide a detailed breakdown of the specific items
-                      included in this category.
-                    </span>
-                    <br />
-                    <span className="body-span">
-                      This class is foundational for any business dealing with
-                      chemical products, raw materials, or related industrial
-                      goods. A trademark in this class helps establish a unique
-                      identity and ensures consumers can easily identify your
-                      products in the marketplace. The following sections will
-                      provide a detailed breakdown of the specific items
-                      included in this category.
-                    </span>
-                    {/* <br /> */}
+                    {cls?.understanding}
                   </p>
                 </div>
                 <div class="understading-image">
-                  <img src={class01} alt="" class="image-styles" />
+                  <img src={cls?.img1} alt="" class="image-styles" />
                 </div>
               </div>
             </section>
@@ -1508,11 +1505,13 @@ const TdClass01 = () => {
             >
               <section class="inner-section">
                 <h2 class="heading">
-                  <span className="heading-span">Tradmark Class 2</span> Goods
-                  Guide
+                  <span className="heading-span">
+                    Tradmark Class {cls?.class}
+                  </span>{" "}
+                  Goods Guide
                 </h2>
                 <p className="sub-heading">
-                  Everything you need to know about Class 2 goods.
+                  Everything you need to know about Class {cls?.class} goods.
                 </p>
                 <div class="grid-layout">
                   <div className="left-contents">
@@ -1528,83 +1527,22 @@ const TdClass01 = () => {
                       includes, in particular:
                     </h3>
                     <ul className="custom-list">
-                      <li>
-                        <FaCheckCircle
-                          color="#4ade80"
-                          size={20}
-                          className="check-icon"
-                        />
-                        Ready-made components and accessories for apparel, such
-                        as pre-fabricated linings for garments, insulated cuffs,
-                        removable pockets, and sole inserts for footwear
-                      </li>
-                      <li>
-                        <FaCheckCircle
-                          color="#4ade80"
-                          size={20}
-                          className="check-icon"
-                        />
-                        Specialized sportswear and athletic footwear, including
-                        items like gym shorts, athletic jerseys, leotards,
-                        cycling apparel, tracksuits, football boots, and running
-                        shoes
-                      </li>
-                      <li>
-                        <FaCheckCircle
-                          color="#4ade80"
-                          size={20}
-                          className="check-icon"
-                        />
-                        Salt for preserving, other than for foodstuffs
-                      </li>
-                      <li>
-                        <FaCheckCircle
-                          color="#4ade80"
-                          size={20}
-                          className="check-icon"
-                        />
-                        Theatrical costumes and costumes for masquerades
-                      </li>
-                      <li>
-                        <FaCheckCircle
-                          color="#4ade80"
-                          size={20}
-                          className="check-icon"
-                        />
-                        All forms of paper-based clothing and headwear intended
-                        for use, such as disposable paper hats and uniforms
-                      </li>
-                      <li>
-                        <FaCheckCircle
-                          color="#4ade80"
-                          size={20}
-                          className="check-icon"
-                        />
-                        Textile bibs for all ages (excluding those made of
-                        paper)
-                      </li>
-                      <li>
-                        <FaCheckCircle
-                          color="#4ade80"
-                          size={20}
-                          className="check-icon"
-                        />
-                        Decorative handkerchiefs and pocket squares
-                      </li>
-                      <li>
-                        <FaCheckCircle
-                          color="#4ade80"
-                          size={20}
-                          className="check-icon"
-                        />
-                        Footmuffs and sleeping bag liners (non-electric)
-                      </li>
+                      {cls?.includeGoods?.map((item, index) => (
+                        <li key={item.id}>
+                          <FaCheckCircle
+                            color="#4ade80"
+                            size={20}
+                            className="check-icon"
+                          />
+                          <span>{item.name}</span>
+                        </li>
+                      ))}
                     </ul>
                   </div>
 
                   <div class="right-content">
                     <span class="subheadingss">
-                      Class 2 Goods: List and Guide
+                      Class {cls?.class} Goods: List and Guide
                     </span>
                     <div className="search-bars">
                       <div class="search-bar">
@@ -1614,20 +1552,24 @@ const TdClass01 = () => {
                         />
 
                         <button class="search-btn">
-                          <span class="icon">🔍</span> Search
+                          <span class="icon">
+                            {" "}
+                            <IoSearch size={18} />
+                          </span>{" "}
+                          Search
                         </button>
                       </div>
                     </div>
                     <div class="right-container">
                       <div class="grid-items-scrollable" ref={gridRef}>
-                        {productList.map((category) => (
+                        {cls?.productList?.map((category) => (
                           <React.Fragment key={category.id}>
                             <div class="category-title-container">
-                              <h2 class="category-title">{category.name}</h2>
+                              <h2 class="category-title">{category?.name}</h2>
                             </div>
-                            {category.subcategories.map((item) => (
+                            {category?.subcategories?.map((item) => (
                               <div key={item.id} class="product-item">
-                                <h3 class="product-name">{item.name}</h3>
+                                <h3 class="product-name">{item?.name}</h3>
                                 <p class="product-description"></p>
                               </div>
                             ))}
@@ -1659,8 +1601,8 @@ const TdClass01 = () => {
                           onClick={scrollUp}
                           style={{
                             color: "#fff",
-                            background: isAtTop ? "gray" : "",
-                            color: isAtTop ? "#666" : "#3e649a",
+                            background: isAtTop ? "" : "",
+                            color: isAtTop ? "#666" : "#1967D2",
                             // border: "1px solid #ccc",
                             cursor: isAtTop ? "not-allowed" : "pointer",
                           }}
@@ -1673,8 +1615,8 @@ const TdClass01 = () => {
                           }`}
                           onClick={scrollDown}
                           style={{
-                            background: isAtBottom ? "gray " : "",
-                            color: isAtBottom ? "#666" : "#3e649a",
+                            background: isAtBottom ? "" : "",
+                            color: isAtBottom ? "#666" : "#1967D2",
                             // border: "1px solid #ccc",
                             cursor: isAtBottom ? "not-allowed" : "pointer",
                           }}
@@ -1709,7 +1651,7 @@ const TdClass01 = () => {
                       <span style={{ color: "#1967D2" }}>Class</span>
                     </h3>
                     <ul style={styles.list}>
-                      {exclusionsData.map((item, index) => (
+                      {cls?.excludeGoods?.map((item, index) => (
                         <li key={index} style={styles.listItem}>
                           <span style={styles.icon}>
                             {item.included ? (
@@ -1718,7 +1660,7 @@ const TdClass01 = () => {
                               <FaTimesCircle color="#f44336" />
                             )}
                           </span>
-                          <span style={styles.text}>{item.text}</span>
+                          <span style={styles.text}>{item?.name}</span>
                         </li>
                       ))}
                     </ul>
@@ -1736,16 +1678,8 @@ const TdClass01 = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {exclusionsData.map((item, index) => (
+                        {cls?.relatedClasses?.map((item, index) => (
                           <tr key={index}>
-                            {/* <td
-                            style={{
-                              borderBottom: "1px solid #93c5fd",
-                              color: "#1967D2",
-                            }}
-                          >
-                            {item.class}
-                          </td> */}
                             <td
                               style={{
                                 borderBottom: "1px solid #93c5fd",
@@ -1756,7 +1690,7 @@ const TdClass01 = () => {
                                   index % 2 === 0 ? "#f3f8ff" : "", // white for even, gray for odd
                               }}
                             >
-                              {item.class}
+                              {item.name}
                             </td>
                           </tr>
                         ))}
@@ -1897,108 +1831,44 @@ const TdClass01 = () => {
                 {/* <p className="overline-whychoose">OVERLINE TEXT</p> */}
                 <h1 className="main-title-whychoose">
                   Who Should Register Under Trademark{" "}
-                  <span style={{ color: "#1967D2" }}>Class 25?</span>
+                  <span style={{ color: "#1967D2" }}>Class {cls?.class}</span>
                 </h1>
                 <p className="subtitle-whychoose">
-                  Trademark Class 1 is mainly for chemicals and chemical-related
-                  products.
+                  {cls?.whoShouldRegisterDescription}
                 </p>
               </div>
               <div className="features-container-whychoose">
                 {/* Left Features */}
                 <div className="features-list-whychoose">
-                  <div className="feature-item-whychoose">
-                    {/* <span className="feature-icon-whychoose">⚫</span> */}
-                    <FaFlask
-                      // className="whocan-ico"
-                      style={{
-                        width: "15%",
-                        height: "20%",
-                        color: "#1967D2",
-                        marginTop: "0.5rem",
-                      }}
-                    />
-                    <div>
-                      <h3 className="feature-title-whychoose">
-                        Chemical manufacturers
-                      </h3>
-                      <p className="feature-text-whychoose">
-                        companies producing industrial or scientific chemicals.
-                      </p>
+                  {/* <span className="feature-icon-whychoose">⚫</span> */}
+                  {cls?.whoShouldRegister?.map((items, index) => (
+                    <div key={items.id} className="feature-item-whychoose">
+                      {/* <FaFlask
+                        // className="whocan-ico"
+                        style={{
+                          width: "15%",
+                          height: "20%",
+                          color: "#1967D2",
+                          marginTop: "0.5rem",
+                        }}
+                      /> */}
+                      {items.icon}
+                      <div>
+                        <h3 className="feature-title-whychoose">
+                          {items?.heading}
+                        </h3>
+                        <p className="feature-text-whychoose">
+                          {items?.subheading}
+                        </p>
+                      </div>{" "}
                     </div>
-                  </div>
-                  <div className="feature-item-whychoose">
-                    {/* <span className="feature-icon-whychoose">⚫</span> */}
-                    <FaSeedling className="whocan-icon" />
-                    <div>
-                      <h3 className="feature-title-whychoose">
-                        Fertilizer companies
-                      </h3>
-                      <p className="feature-text-whychoose">
-                        businesses making or selling agricultural,
-                        horticultural, or forestry fertilizers.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="feature-item-whychoose">
-                    {/* <span className="feature-icon-whychoose">⚫</span> */}
-                    <FaCubes className="whocan-icon" />
-                    <div>
-                      <h3 className="feature-title-whychoose">
-                        Plastic & resin companies
-                      </h3>
-                      <p className="feature-text-whychoose">
-                        those producing unprocessed artificial resins and
-                        unprocessed plastics.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="feature-item-whychoose">
-                    {/* <span className="feature-icon-whychoose">⚫</span> */}
-                    <FaTools className="whocan-icon" />
-                    <div>
-                      <h3 className="feature-title-whychoose">
-                        Industrial suppliers
-                      </h3>
-                      <p className="feature-text-whychoose">
-                        supplying fire-extinguishing compositions, adhesives for
-                        industrial use, or tanning substances.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="feature-item-whychoose">
-                    {/* <span className="feature-icon-whychoose">⚫</span> */}
-                    <FaFlask className="whocan-icon" />
-                    <div>
-                      <h3 className="feature-title-whychoose">
-                        Raw material providers
-                      </h3>
-                      <p className="feature-text-whychoose">
-                        businesses dealing in chemical raw materials for
-                        manufacturing and industrial applications.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="feature-item-whychoose">
-                    {/* <span className="feature-icon-whychoose">⚫</span> */}
-                    <FaMicroscope className="whocan-icon" />
-                    <div>
-                      <h3 className="feature-title-whychoose">
-                        Photographic & scientific chemical suppliers
-                      </h3>
-                      <p className="feature-text-whychoose">
-                        companies providing chemicals used in photography,
-                        laboratory research, and science.
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
                 {/* Right Image */}
                 <div className="features-image-whychoose">
                   <div className="placeholder-whychoose">
-                    {/* <span className="placeholder-icon-whychoose">🖼️</span> */}
                     <img
-                      src={whoshould}
+                      src={cls?.shoShouldRegisterImage}
                       alt="why choose"
                       className="placeholder-icon-whychoose"
                     />
@@ -2032,7 +1902,7 @@ const TdClass01 = () => {
                 aria-label="Call to action buttons"
               >
                 <button
-                  className=" btn btn-primary"
+                  className=" btn   btn-primarys"
                   onClick={() => (window.location = "#book")}
                 >
                   Schedule a Free Consultation
@@ -2358,14 +2228,15 @@ const TdClass01 = () => {
               <p className="faq-labels">FAQS</p>
               <h2 className="faq-titles">Questions? We're glad you asked</h2>
               <p className="faq-subtitles">
-                Get clear, expert answers to the most important questions about
-                your care and your child’s health.
+                {/* Get clear, expert answers to the most important questions about
+                your care and your child’s health. */}
+                {cls?.faqsTitle}
               </p>
             </div>
 
             {/* Right Side */}
             <div className="faqs-rights">
-              {faqs.map((faq, index) => (
+              {cls?.faqs?.map((faq, index) => (
                 <div
                   key={index}
                   className={`faq-items ${openIndex === index ? "active" : ""}`}

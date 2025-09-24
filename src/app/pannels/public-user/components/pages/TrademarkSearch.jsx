@@ -10,7 +10,7 @@ import classesData from "../tdClassesPages/tradmarkClassesDynamicDataList";
 import "../tdClassCss/classList.css";
 const TrademarkSearch = () => {
   // State variables
-  console.log(classesData, "classesData");
+  // console.log(classesData, "classesData");
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [classDetailInput, setClassDetailInput] = useState("");
@@ -856,19 +856,20 @@ const TrademarkSearch = () => {
                   <div className="class-list-container">
                     {classesData.map((cls) => (
                       <>
-                        {console.log(cls.title, "claskdjdj")}
+                        {/* {console.log(cls.title, "claskdjdj")} */}
                         <Link
                           key={cls.id}
-                          to={`/class/${cls.id}`}
+                          to={`${publicUser?.tdclasses?.TdClass01}/${cls.id}`}
                           className="class-card"
                         >
                           <h3 className="class-title">
-                            {console.log(cls.title)}
+                            {cls.title}
+                            {/* {console.log(cls.title)} */}
                           </h3>
                           {/* <p className="class-description">
                             {cls.understanding}
                           </p> */}
-                          <span className="view-details">View Details →</span>
+                          {/* <span className="view-details">View Details →</span> */}
                         </Link>
                       </>
                     ))}
